@@ -1,7 +1,7 @@
 #ПРОБЛЕМА:
 При поднятии докер-контейнера запускается локальный nginx-сервер,
 который не отображает index.php текущего проекта,
-а дефолтную пусть страницу nginx-сервера. Поэтому выполненную работу нельзя проверить
+а дефолтную пусть страницу nginx-сервера на 8080 порте. Поэтому выполненную работу нельзя проверить
 в docker-контейнере без его корректной настройки
 
 #ЗАДАНИЕ:
@@ -11,10 +11,24 @@
 email, username, password. В списке пользователей должен быть поиск по username и email
 
 #ЗАПУСК ПРОЕКТА:
+Если бы корректно работал nginx-сервер:
 ```sh
+$ docker-compose up -d --build
+$ docker-compose exec php bash
 $ bin/console doctrine:database:create --if-not-exists
 $ bin/console doctrine:migrations:migrate --no-interaction
 $ bin/console doctrine:fixtures:load
+```
+В моем случае:
+```sh
+$ composer install
+$ bin/console doctrine:database:create --if-not-exists
+$ bin/console doctrine:migrations:migrate --no-interaction
+$ bin/console doctrine:fixtures:load
+Если есть проблемы с соединением к БД, то можно поднять контейнер докера с базой:
+$ docker-compose up -d --build
+Запустить локальный сервер, например:
+$ symfony server:start
 ```
 
 #РАБОТА С API
