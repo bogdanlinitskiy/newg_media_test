@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:9.5.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ''
+      POSTGRES_DB: newg_media
+    ports:
+      - "5432:5432"
+
+  php:
+    container_name: php
+    build: .
+    ports:
+      - '9000:9000'
+    volumes:
+      - .:/var/www/symfony
+    depends_on:
+      - postgres
+
+  nginx:
+    container_name: nginx
+    image: nginx:stable-alpine
+    ports:
+      - '8080:80'
+    volumes:
+      - .:/var/www/symfony/public
+      - ./docker/nginx/default.conf:/etc/docker/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - postgres

@@ -1,0 +1,3 @@
+services:
+
+  App\Repository\UserRepository: '@app.repository.user'

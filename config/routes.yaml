@@ -1,0 +1,28 @@
+index:
+    path: /
+    controller: App\Controller\UserController::index
+
+auth:
+    path: /auth
+    controller: App\Controller\UserController::auth
+    methods: POST
+
+api_user_search:
+    path: /api/users
+    controller: App\Controller\UserController::search
+    methods: GET
+
+api_user_create:
+    path: /api/users
+    controller: App\Controller\UserController::create
+    methods: POST
+
+api_user_show:
+    path:       /api/users/{id}
+    controller: App\Controller\UserController::show
+    methods:    GET
+
+api_user_update:
+    path: /api/users/{id}
+    controller: App\Controller\UserController::update
+    methods: PATCH
